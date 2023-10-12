@@ -1,6 +1,6 @@
-import type BaseUniversalEntity from '../BaseSystemEntity';
+import type AbstractEntity from '../AbstractEntity';
 
-export default interface TemplateEntity extends BaseUniversalEntity {
+export default interface TemplateEntity extends AbstractEntity {
   name: string;
   content: string;
   groupId: number;

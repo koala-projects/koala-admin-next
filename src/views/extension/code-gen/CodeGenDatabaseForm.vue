@@ -1,35 +1,25 @@
 <script lang="ts" setup>
   import { BasicForm, useForm } from '/@/components/Form';
-
-  import { templateGroupSchemas } from './data';
+  import { databaseFormSchemas } from './code-gen.data';
 
   const [register, { validate }] = useForm({
     labelWidth: 100,
-    schemas: templateGroupSchemas,
+    schemas: databaseFormSchemas,
     actionColOptions: {
       span: 14,
     },
-    resetButtonOptions: {
-      text: '上一步',
-    },
+    showResetButton: false,
     submitButtonOptions: {
-      text: '生成',
+      text: '下一步',
     },
-    resetFunc: prev,
     submitFunc: next,
   });
 
-  const emit = defineEmits(['prev', 'next']);
-
-  async function prev() {
-    emit('prev');
-  }
+  const emit = defineEmits(['next']);
 
   async function next() {
-    try {
-      const values = await validate();
-      emit('next', values);
-    } catch (error) {}
+    const values = await validate();
+    emit('next', values);
   }
 </script>
 <template>
@@ -48,16 +38,16 @@
 
     h3 {
       margin: 0 0 12px;
+      color: @text-color;
       font-size: 16px;
       line-height: 32px;
-      color: @text-color;
     }
 
     h4 {
       margin: 0 0 4px;
+      color: @text-color;
       font-size: 14px;
       line-height: 22px;
-      color: @text-color;
     }
 
     p {

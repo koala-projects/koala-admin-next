@@ -1,12 +1,11 @@
 <script lang="ts" setup>
   import { BasicForm, useForm } from '/@/components/Form';
-  import { obtainTableFormSchemas } from './data';
 
-  const props = defineProps<{ databaseId: number }>();
+  import { templateGroupSchemas } from './code-gen.data';
 
   const [register, { validate }] = useForm({
     labelWidth: 100,
-    schemas: obtainTableFormSchemas(props.databaseId),
+    schemas: templateGroupSchemas,
     actionColOptions: {
       span: 14,
     },
@@ -14,7 +13,7 @@
       text: '上一步',
     },
     submitButtonOptions: {
-      text: '下一步',
+      text: '生成',
     },
     resetFunc: prev,
     submitFunc: next,
@@ -27,8 +26,12 @@
   }
 
   async function next() {
-    const values = await validate();
-    emit('next', values);
+    try {
+      const values = await validate();
+      emit('next', values);
+    } catch (error) {
+      console.log(error);
+    }
   }
 </script>
 <template>

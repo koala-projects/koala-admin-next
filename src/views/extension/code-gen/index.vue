@@ -6,12 +6,12 @@
   import { PageWrapper } from '/@/components/Page';
   import { useLoading } from '/@/components/Loading';
 
-  import { PreviewResponse, codePreview as codePreviewApi, codeDownload } from '/@/apis/code';
+  import { PreviewResponse, codePreview as codePreviewApi, codeDownload } from '/@/apis/code-gen';
 
-  import CodeDatabaseForm from './CodeDatabaseForm.vue';
-  import CodeTableForm from './CodeTableForm.vue';
-  import CodeTemplateGroupForm from './CodeTemplateGroupForm.vue';
-  import CodePreview from './CodePreview.vue';
+  import CodeGenDatabaseForm from './CodeGenDatabaseForm.vue';
+  import CodeGenTableForm from './CodeGenTableForm.vue';
+  import CodeGenTemplateGroupForm from './CodeGenTemplateGroupForm.vue';
+  import CodeGenPreview from './CodeGenPreview.vue';
 
   const current = ref(0);
   const initTemplateGroupForm = ref(false);
@@ -92,21 +92,21 @@
       </steps>
     </div>
     <div class="mt-5">
-      <code-database-form @next="handleDatabase" v-show="current === 0" />
-      <code-table-form
+      <code-gen-database-form @next="handleDatabase" v-show="current === 0" />
+      <code-gen-table-form
         :database-id="databaseId!"
         @prev="handleStepPrev"
         @next="handleTables"
         v-show="current === 1"
         v-if="current >= 1"
       />
-      <code-template-group-form
+      <code-gen-template-group-form
         v-show="current === 2"
         @prev="handleStepPrev"
         @next="handleTemplateGroup"
         v-if="initTemplateGroupForm"
       />
-      <code-preview
+      <code-gen-preview
         :preview="preview!"
         v-show="current === 3"
         @download="handleDownload"

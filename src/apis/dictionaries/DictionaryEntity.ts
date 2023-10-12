@@ -1,6 +1,6 @@
-import type BaseUniversalEntity from '../BaseSystemEntity';
+import type AbstractEntity from '../AbstractEntity';
 
-export default interface DictionaryEntity extends BaseUniversalEntity {
+export default interface DictionaryEntity extends AbstractEntity {
   code: string;
   name: string;
   remark?: string;

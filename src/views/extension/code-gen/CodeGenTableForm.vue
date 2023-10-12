@@ -1,21 +1,30 @@
 <script lang="ts" setup>
   import { BasicForm, useForm } from '/@/components/Form';
-  import { databaseFormSchemas } from './data';
+  import { obtainTableFormSchemas } from './code-gen.data';
+
+  const props = defineProps<{ databaseId: number }>();
 
   const [register, { validate }] = useForm({
     labelWidth: 100,
-    schemas: databaseFormSchemas,
+    schemas: obtainTableFormSchemas(props.databaseId),
     actionColOptions: {
       span: 14,
     },
-    showResetButton: false,
+    resetButtonOptions: {
+      text: '上一步',
+    },
     submitButtonOptions: {
       text: '下一步',
     },
+    resetFunc: prev,
     submitFunc: next,
   });
 
-  const emit = defineEmits(['next']);
+  const emit = defineEmits(['prev', 'next']);
+
+  async function prev() {
+    emit('prev');
+  }
 
   async function next() {
     const values = await validate();

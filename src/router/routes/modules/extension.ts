@@ -39,7 +39,7 @@ const extension: AppRouteModule = {
         title: t('routes.extension.code.title'),
         ignoreKeepAlive: true,
       },
-      component: () => import('/@/views/extension/code/index.vue'),
+      component: () => import('/@/views/extension/code-gen/index.vue'),
     },
   ],
 };

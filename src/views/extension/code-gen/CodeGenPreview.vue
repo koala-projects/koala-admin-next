@@ -7,20 +7,20 @@
 
   import { keys, get, set } from 'lodash-es';
 
-  import { PreviewResponse } from '/@/apis/code';
+  import { PreviewResponse } from '/@/apis/code-gen';
 
   const props = defineProps<{ preview: PreviewResponse }>();
 
   const activeTable = ref<string>(keys(props.preview)[0]);
-  const activeCode = ref<string>(props.preview[activeTable.value][0].name);
+  const activeCode = ref<string>(props.preview[activeTable.value][0].pathname);
 
   const history = {};
 
-  function handleTableChange(activeKey: string) {
-    activeCode.value = get(history, activeKey, props.preview[activeTable.value][0].name);
+  function handleTableChange(activeKey: string | number) {
+    activeCode.value = get(history, activeKey, props.preview[activeTable.value][0].pathname);
   }
 
-  function handleCodeChange(activeKey: string) {
+  function handleCodeChange(activeKey: string | number) {
     set(history, activeTable.value, activeKey);
   }
 
@@ -39,7 +39,7 @@
     <tabs tab-position="left" v-model:activeKey="activeTable" @change="handleTableChange">
       <tab-pane v-for="table in keys(props.preview)" :key="table" :tab="table">
         <tabs tab-position="top" v-model:activeKey="activeCode" @change="handleCodeChange">
-          <tab-pane v-for="code in props.preview[table]" :key="code.name" :tab="code.name">
+          <tab-pane v-for="code in props.preview[table]" :key="code.pathname" :tab="code.pathname">
             <code-editor :value="code.content" readonly />
           </tab-pane>
         </tabs>
