@@ -41,7 +41,13 @@
     },
     setup(props) {
       const modelRef = ref({});
-      const [registerForm] = useForm({
+      const [
+        registerForm,
+        // {
+        //   // setFieldsValue,
+        //   // setProps
+        // },
+      ] = useForm({
         labelWidth: 120,
         schemas,
         showActionButtonGroup: false,

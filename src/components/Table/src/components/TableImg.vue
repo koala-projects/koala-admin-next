@@ -86,6 +86,10 @@
 
     .img-div {
       display: inline-grid;
+
+      > .ant-image:nth-of-type(n + 2) {
+        display: none;
+      }
     }
   }
 </style>

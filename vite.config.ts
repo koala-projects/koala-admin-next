@@ -19,14 +19,14 @@ export default defineApplicationConfig({
       port: 3100,
       proxy: {
         '/api': {
-          target: 'http://127.0.0.1:4200',
+          target: 'http://127.0.0.1:9000',
           changeOrigin: true,
           ws: true,
           // only https
           // secure: false
         },
         '/oauth2': {
-          target: 'http://127.0.0.1:4200',
+          target: 'http://127.0.0.1:9000',
           changeOrigin: true,
           ws: true,
         },

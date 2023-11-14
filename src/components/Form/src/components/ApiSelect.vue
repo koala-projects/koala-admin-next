@@ -21,8 +21,9 @@
   </a-select>
 </template>
 <script lang="ts">
-  import { defineComponent, PropType, ref, watchEffect, computed, unref, watch } from 'vue';
+  import { defineComponent, PropType, ref, computed, unref, watch } from 'vue';
   import { Select as ASelect } from 'ant-design-vue';
+  import type { SelectValue } from 'ant-design-vue/es/select';
   import { isFunction } from '/@/utils/is';
   import { useRuleFormItem } from '/@/hooks/component/useFormItem';
   import { useAttrs } from '@vben/hooks';
@@ -31,7 +32,7 @@
   import { useI18n } from '/@/hooks/web/useI18n';
   import { propTypes } from '/@/utils/propTypes';
 
-  type OptionsItem = { label: string; value: string; disabled?: boolean };
+  type OptionsItem = { label?: string; value?: string; disabled?: boolean; [name: string]: any };
 
   export default defineComponent({
     name: 'ApiSelect',
@@ -41,7 +42,7 @@
     },
     inheritAttrs: false,
     props: {
-      value: [Array, Object, String, Number],
+      value: { type: [Array, Object, String, Number] as PropType<SelectValue> },
       numberToString: propTypes.bool,
       api: {
         type: Function as PropType<(arg?: any) => Promise<OptionsItem[]>>,
@@ -55,14 +56,18 @@
       valueField: propTypes.string.def('value'),
       immediate: propTypes.bool.def(true),
       alwaysLoad: propTypes.bool.def(false),
-      options: propTypes.array.def([]),
+      options: {
+        type: Array<OptionsItem>,
+        default: [],
+      },
     },
     emits: ['options-change', 'change', 'update:value'],
     setup(props, { emit }) {
       const options = ref<OptionsItem[]>([]);
       const loading = ref(false);
-      const isFirstLoad = ref(true);
-      const emitData = ref<any[]>([]);
+      // 首次是否加载过了
+      const isFirstLoaded = ref(false);
+      const emitData = ref<OptionsItem[]>([]);
       const attrs = useAttrs();
       const { t } = useI18n();
 
@@ -86,10 +91,6 @@
         return data.length > 0 ? data : props.options;
       });
 
-      watchEffect(() => {
-        props.immediate && !props.alwaysLoad && fetch();
-      });
-
       watch(
         () => state.value,
         (v) => {
@@ -100,18 +101,19 @@
       watch(
         () => props.params,
         () => {
-          !unref(isFirstLoad) && fetch();
+          !unref(isFirstLoaded) && fetch();
         },
-        { deep: true },
+        { deep: true, immediate: props.immediate },
       );
 
       async function fetch() {
         const api = props.api;
-        if (!api || !isFunction(api)) return;
+        if (!api || !isFunction(api) || loading.value) return;
         options.value = [];
         try {
           loading.value = true;
           const res = await api(props.params);
+          isFirstLoaded.value = true;
           if (Array.isArray(res)) {
             options.value = res;
             emitChange();
@@ -125,16 +127,17 @@
           console.warn(error);
         } finally {
           loading.value = false;
+          // reset status
+          isFirstLoaded.value = false;
         }
       }
 
-      async function handleFetch(visible) {
+      async function handleFetch(visible: boolean) {
         if (visible) {
           if (props.alwaysLoad) {
             await fetch();
-          } else if (!props.immediate && unref(isFirstLoad)) {
+          } else if (!props.immediate && !unref(isFirstLoaded)) {
             await fetch();
-            isFirstLoad.value = false;
           }
         }
       }
@@ -144,7 +147,6 @@
       }
 
       function handleChange(_, ...args) {
-        emit('change', args[0] ? args[0].value : undefined);
         emitData.value = args;
       }
 

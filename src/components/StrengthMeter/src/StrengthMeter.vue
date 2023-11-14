@@ -48,6 +48,7 @@
       });
 
       function handleChange(e) {
+        emit('change', e.target.value);
         innerValueRef.value = e.target.value;
       }
 
@@ -108,7 +109,9 @@
         position: absolute;
         width: 0;
         height: inherit;
-        transition: width 0.5s ease-in-out, background 0.25s;
+        transition:
+          width 0.5s ease-in-out,
+          background 0.25s;
         border-radius: inherit;
         background-color: transparent;
 

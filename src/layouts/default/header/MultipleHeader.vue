@@ -1,8 +1,12 @@
 <template>
-  <div :style="getPlaceholderDomStyle" v-if="getIsShowPlaceholderDom"></div>
+  <div
+    :class="[`${prefixCls}__placeholder`]"
+    :style="getPlaceholderDomStyle"
+    v-if="getIsShowPlaceholderDom"
+  ></div>
   <div :style="getWrapStyle" :class="getClass">
     <LayoutHeader v-if="getShowInsetHeaderRef" />
-    <MultipleTabs v-if="getShowTabs" />
+    <MultipleTabs v-if="getShowTabs" :key="tabStore.getLastDragEndIndex" />
   </div>
 </template>
 <script lang="ts">
@@ -18,6 +22,7 @@
   import { useAppInject } from '/@/hooks/web/useAppInject';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { useLayoutHeight } from '../content/useContentViewHeight';
+  import { useMultipleTabStore } from '/@/store/modules/multipleTab';
 
   const HEADER_HEIGHT = 48;
 
@@ -27,9 +32,10 @@
     components: { LayoutHeader, MultipleTabs },
     setup() {
       const { setHeaderHeight } = useLayoutHeight();
+      const tabStore = useMultipleTabStore();
       const { prefixCls } = useDesign('layout-multiple-header');
 
-      const { getCalcContentWidth, getSplit } = useMenuSetting();
+      const { getCalcContentWidth, getSplit, getShowMenu } = useMenuSetting();
       const { getIsMobile } = useAppInject();
       const {
         getFixed,
@@ -41,7 +47,7 @@
 
       const { getFullContent } = useFullContent();
 
-      const { getShowMultipleTab } = useMultipleTabSetting();
+      const { getShowMultipleTab, getAutoCollapse } = useMultipleTabSetting();
 
       const getShowTabs = computed(() => {
         return unref(getShowMultipleTab) && !unref(getFullContent);
@@ -66,19 +72,23 @@
         return unref(getFixed) || unref(getShowFullHeaderRef);
       });
 
+      const getIsUnFold = computed(() => !unref(getShowMenu) && !unref(getShowHeader));
+
       const getPlaceholderDomStyle = computed((): CSSProperties => {
         let height = 0;
-        if (
-          (unref(getShowFullHeaderRef) || !unref(getSplit)) &&
-          unref(getShowHeader) &&
-          !unref(getFullContent)
-        ) {
-          height += HEADER_HEIGHT;
+        if (!(unref(getAutoCollapse) && unref(getIsUnFold))) {
+          if (
+            (unref(getShowFullHeaderRef) || !unref(getSplit)) &&
+            unref(getShowHeader) &&
+            !unref(getFullContent)
+          ) {
+            height += HEADER_HEIGHT;
+          }
+          if (unref(getShowMultipleTab) && !unref(getFullContent)) {
+            height += TABS_HEIGHT;
+          }
+          setHeaderHeight(height);
         }
-        if (unref(getShowMultipleTab) && !unref(getFullContent)) {
-          height += TABS_HEIGHT;
-        }
-        setHeaderHeight(height);
         return {
           height: `${height}px`,
         };
@@ -101,6 +111,7 @@
         getIsShowPlaceholderDom,
         getShowTabs,
         getShowInsetHeaderRef,
+        tabStore,
       };
     },
   });
@@ -121,6 +132,10 @@
       z-index: @multiple-tab-fixed-z-index;
       top: 0;
       width: 100%;
+    }
+
+    &__placeholder {
+      transition: height 0.6s ease-in-out;
     }
   }
 </style>

@@ -5,6 +5,7 @@ import type {
   TableRowSelection as ITableRowSelection,
   Key,
 } from 'ant-design-vue/lib/table/interface';
+
 import type { ColumnProps } from 'ant-design-vue/lib/table';
 
 import { ComponentType } from './componentType';
@@ -94,7 +95,7 @@ export interface TableActionType {
   expandRows: (keys: (string | number)[]) => void;
   collapseAll: () => void;
   scrollTo: (pos: string) => void; // pos: id | "top" | "bottom"
-  getSelectRowKeys: () => string[];
+  getSelectRowKeys: () => Key[];
   deleteSelectRowByKey: (key: string) => void;
   setPagination: (info: Partial<PaginationProps>) => void;
   setTableData: <T = Recordable>(values: T[]) => void;
@@ -439,7 +440,7 @@ export interface BasicColumn extends ColumnProps<Recordable> {
   defaultHidden?: boolean;
 
   // Help text for table column header
-  helpMessage?: string | string[];
+  helpMessage?: string | string[] | VNodeChild | JSX.Element;
 
   format?: CellFormat;
 
