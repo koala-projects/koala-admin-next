@@ -1,13 +1,13 @@
 import { defHttp } from '/@/utils/http/axios';
 
 import type SearchParameters from '../SearchParameters';
-import type PageResult from '../PageResult';
-import type { UserEntity } from './UserEntity';
+import type Page from '../PageResult';
+import type UserEntity from './UserEntity';
 
 const domain = '/users';
 
 export function listUsers(params: SearchParameters) {
-  return defHttp.get<PageResult<UserEntity>>({ url: domain, params }, { joinParamsToUrl: true });
+  return defHttp.get<Page<UserEntity>>({ url: domain, params }, { joinParamsToUrl: true });
 }
 
 export function loadUser(id: number) {
@@ -45,4 +45,4 @@ export function setUserRoleIds(id: number, roleIds: number[] = []) {
   return defHttp.put<null>({ url: `${domain}/${id}/role-ids`, data: { data: roleIds } });
 }
 
-export { UserEntity };
+export type { UserEntity };

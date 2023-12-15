@@ -25,4 +25,4 @@ export function deleteDepartment(id: string) {
   return defHttp.delete<null>({ url: `${domain}/${id}` });
 }
 
-export { DepartmentEntity };
+export type { DepartmentEntity };

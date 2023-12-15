@@ -1,17 +1,14 @@
 import { defHttp } from '/@/utils/http/axios';
 
 import type SearchParameters from '../SearchParameters';
-import type PageResult from '../PageResult';
+import type Page from '../PageResult';
 import type DatabaseEntity from './DatabaseEntity';
 import type SimpleDatabaseTable from './SimpleDatabaseTable';
 
 const domain = '/databases';
 
 export function listDatabases(params: SearchParameters) {
-  return defHttp.get<PageResult<DatabaseEntity>>(
-    { url: domain, params },
-    { joinParamsToUrl: true },
-  );
+  return defHttp.get<Page<DatabaseEntity>>({ url: domain, params }, { joinParamsToUrl: true });
 }
 
 export function loadDatabase(id: number) {

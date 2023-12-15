@@ -2,23 +2,23 @@ import { BasicColumn, FormSchema } from '/@/components/Table';
 
 export const columns: BasicColumn[] = [
   {
-    title: '角色代码',
+    title: '岗位代码',
     dataIndex: 'code',
   },
   {
-    title: '角色名称',
+    title: '岗位名称',
     dataIndex: 'name',
   },
   {
-    title: '角色描述',
+    title: '岗位描述',
     dataIndex: 'description',
   },
 ];
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'codeLike',
-    label: '角色代码',
+    field: 'code',
+    label: '岗位代码',
     component: 'Input',
     colProps: {
       xl: 12,
@@ -26,8 +26,8 @@ export const searchFormSchema: FormSchema[] = [
     },
   },
   {
-    field: 'nameLike',
-    label: '角色名称',
+    field: 'name',
+    label: '岗位名称',
     component: 'Input',
     colProps: {
       xl: 12,
@@ -39,19 +39,22 @@ export const searchFormSchema: FormSchema[] = [
 export const formSchema: FormSchema[] = [
   {
     field: 'code',
-    label: '角色代码',
+    label: '岗位代码',
     component: 'Input',
-    required: true,
   },
   {
     field: 'name',
-    label: '角色名称',
+    label: '岗位名称',
     component: 'Input',
-    required: true,
   },
   {
     field: 'description',
-    label: '角色描述',
-    component: 'InputTextArea',
+    label: '岗位描述',
+    component: 'Input',
+  },
+  {
+    field: 'sortIndex',
+    label: '排序索引',
+    component: 'InputNumber',
   },
 ];

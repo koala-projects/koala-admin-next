@@ -1,15 +1,12 @@
 <script lang="ts" setup>
   import { BasicTable, TableAction, useTable } from '/@/components/Table';
   import { useModal } from '/@/components/Modal';
-  import { useDrawer } from '/@/components/Drawer';
-  import { listRoles, deleteRole } from '/@/apis/roles';
-  import { YesNo } from '/@/enums/YesNo';
-  import RoleModal from './RoleModal.vue';
-  import RolePermissionDrawer from './RolePermissionDrawer.vue';
-  import { columns, searchFormSchema } from './role.data';
+  import { listDuty, deleteDuty } from '/@/apis/duties';
+  import DutyModal from './DutyModal.vue';
+  import { columns, searchFormSchema } from './duty.data';
 
   const [register, { reload }] = useTable({
-    title: '角色列表',
+    title: '岗位列表',
     columns: columns,
     actionColumn: {
       width: 120,
@@ -17,7 +14,7 @@
       dataIndex: 'action',
       fixed: undefined,
     },
-    api: listRoles,
+    api: listDuty,
     showIndexColumn: false,
     bordered: true,
     showTableSetting: true,
@@ -29,7 +26,6 @@
     },
   });
   const [registerModal, { openModal }] = useModal();
-  const [registerDrawer, { openDrawer }] = useDrawer();
   function handleCreate() {
     openModal(true, {
       isUpdate: false,
@@ -41,11 +37,8 @@
       isUpdate: true,
     });
   }
-  function handleSetting(record: Recordable) {
-    openDrawer(true, record);
-  }
   async function handleDelete(record: Recordable) {
-    await deleteRole(record.id);
+    await deleteDuty(record.id);
     reload();
   }
   function handleSuccess() {
@@ -56,7 +49,7 @@
   <div>
     <basic-table @register="register">
       <template #toolbar>
-        <a-button v-auth="'role.create'" type="primary" @click="handleCreate"> 新增角色 </a-button>
+        <a-button v-auth="'duty.create'" type="primary" @click="handleCreate"> 新增岗位 </a-button>
       </template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
@@ -65,23 +58,14 @@
               {
                 icon: 'clarity:note-edit-line',
                 tooltip: '编辑',
-                auth: 'role.update',
-                ifShow: record.systemic === YesNo.NO,
+                auth: 'duty.update',
                 onClick: handleEdit.bind(null, record),
-              },
-              {
-                icon: 'ant-design:setting-outlined',
-                tooltip: '角色配置',
-                auth: 'role.update',
-                ifShow: record.systemic === YesNo.NO,
-                onClick: handleSetting.bind(null, record),
               },
               {
                 icon: 'ant-design:delete-outlined',
                 tooltip: '删除',
                 color: 'error',
-                auth: 'role.delete',
-                ifShow: record.systemic === YesNo.NO,
+                auth: 'duty.delete',
                 popConfirm: {
                   title: '是否确认删除',
                   placement: 'left',
@@ -93,8 +77,6 @@
         </template>
       </template>
     </basic-table>
-    <role-modal @register="registerModal" @success="handleSuccess" />
-    <role-permission-drawer @register="registerDrawer" />
+    <duty-modal @register="registerModal" @success="handleSuccess" />
   </div>
 </template>
-../../../apis/role

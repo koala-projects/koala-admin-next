@@ -1,8 +1,15 @@
-import type AbstractEntity from '../AbstractEntity';
-
-export default interface DepartmentEntity extends AbstractEntity {
+interface DepartmentEntity {
+  parentId?: number;
   code: string;
   name: string;
-  remark?: string;
-  parentId: DepartmentEntity;
+  description?: string;
+  sortIndex?: number;
+  enabled: string;
+  systemic: string;
+  createdBy: number;
+  createdDate: number;
+  lastModifiedBy?: number;
+  lastModifiedDate?: number;
 }
+
+export default DepartmentEntity;

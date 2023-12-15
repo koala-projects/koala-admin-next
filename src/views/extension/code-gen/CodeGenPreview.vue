@@ -5,23 +5,23 @@
 
   import { CodeEditor } from '/@/components/CodeEditor';
 
-  import { keys, get, set } from 'lodash-es';
+  import { get, set } from 'lodash-es';
 
-  import { PreviewResponse } from '/@/apis/code-gen';
+  import { MultiCodeGenResult } from '/@/apis/code-gen';
 
-  const props = defineProps<{ preview: PreviewResponse }>();
+  const props = defineProps<{ preview: MultiCodeGenResult[] }>();
 
-  const activeTable = ref<string>(keys(props.preview)[0]);
-  const activeCode = ref<string>(props.preview[activeTable.value][0].pathname);
+  const tableActiveKey = ref<number>(0);
+  const codeActiveKey = ref<number>(0);
 
   const history = {};
 
   function handleTableChange(activeKey: string | number) {
-    activeCode.value = get(history, activeKey, props.preview[activeTable.value][0].pathname);
+    codeActiveKey.value = get(history, activeKey, 0);
   }
 
   function handleCodeChange(activeKey: string | number) {
-    set(history, activeTable.value, activeKey);
+    set(history, tableActiveKey.value, activeKey);
   }
 
   const emit = defineEmits(['download', 'redo']);
@@ -36,11 +36,19 @@
 </script>
 <template>
   <div>
-    <tabs tab-position="left" v-model:activeKey="activeTable" @change="handleTableChange">
-      <tab-pane v-for="table in keys(props.preview)" :key="table" :tab="table">
-        <tabs tab-position="top" v-model:activeKey="activeCode" @change="handleCodeChange">
-          <tab-pane v-for="code in props.preview[table]" :key="code.pathname" :tab="code.pathname">
-            <code-editor :value="code.content" readonly />
+    <tabs tab-position="left" v-model:activeKey="tableActiveKey" @change="handleTableChange">
+      <tab-pane
+        v-for="(multiResult, multiIndex) in props.preview"
+        :key="multiIndex"
+        :tab="multiResult.tableName"
+      >
+        <tabs tab-position="top" v-model:activeKey="codeActiveKey" @change="handleCodeChange">
+          <tab-pane
+            v-for="(result, codeIndex) in multiResult.codeGenResults"
+            :key="codeIndex"
+            :tab="result.filename"
+          >
+            <code-editor :value="result.content" readonly />
           </tab-pane>
         </tabs>
       </tab-pane>

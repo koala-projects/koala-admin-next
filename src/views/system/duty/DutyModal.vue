@@ -2,12 +2,12 @@
   import { ref, unref, computed } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { UserEntity, createUser, updateUser } from '/@/apis/users';
-  import { formSchema } from './user.data';
+  import { formSchema } from './duty.data';
+  import { DutyEntity, createDuty, updateDuty } from '/@/apis/duties';
 
-  const isUpdate = ref(true);
+  const isUpdate = ref(false);
   const id = ref<number | null>(null);
-  const getTitle = computed(() => (!unref(isUpdate) ? '新增用户' : '编辑用户'));
+  const getTitle = computed(() => (!unref(isUpdate) ? '新增岗位' : '编辑岗位'));
   const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
     labelWidth: 100,
     baseColProps: { span: 24 },
@@ -28,12 +28,12 @@
   const emit = defineEmits(['success', 'register']);
   async function handleSubmit() {
     try {
-      const values: UserEntity = await validate();
+      const values: DutyEntity = await validate();
       setModalProps({ confirmLoading: true });
       if (unref(isUpdate)) {
-        await updateUser(unref(id)!, values);
+        await updateDuty(unref(id)!, values);
       } else {
-        await createUser(values);
+        await createDuty(values);
       }
       closeModal();
       emit('success');

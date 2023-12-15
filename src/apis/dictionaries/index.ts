@@ -1,16 +1,13 @@
 import { defHttp } from '/@/utils/http/axios';
 
 import type SearchParameters from '../SearchParameters';
-import type PageResult from '../PageResult';
+import type Page from '../PageResult';
 import type DictionaryEntity from './DictionaryEntity';
 
 const domain = '/dictionaries';
 
 export function listDictionaries(params: SearchParameters) {
-  return defHttp.get<PageResult<DictionaryEntity>>(
-    { url: domain, params },
-    { joinParamsToUrl: true },
-  );
+  return defHttp.get<Page<DictionaryEntity>>({ url: domain, params }, { joinParamsToUrl: true });
 }
 
 export function loadDictionary(id: string) {

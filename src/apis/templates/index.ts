@@ -1,16 +1,13 @@
 import { defHttp } from '/@/utils/http/axios';
 
 import type SearchParameters from '../SearchParameters';
-import type PageResult from '../PageResult';
+import type Page from '../PageResult';
 import type TemplateEntity from './TemplateEntity';
 
 const domain = '/templates';
 
 export function listTemplates(params: SearchParameters) {
-  return defHttp.get<PageResult<TemplateEntity>>(
-    { url: domain, params },
-    { joinParamsToUrl: true },
-  );
+  return defHttp.get<Page<TemplateEntity>>({ url: domain, params }, { joinParamsToUrl: true });
 }
 
 export function loadTemplate(id: number) {

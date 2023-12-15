@@ -1,13 +1,13 @@
 import { defHttp } from '/@/utils/http/axios';
 
 import type SearchParameters from '../SearchParameters';
-import type PageResult from '../PageResult';
+import type Page from '../PageResult';
 import type RoleEntity from './RoleEntity';
 
 const domain = '/roles';
 
 export function listRoles(params: SearchParameters) {
-  return defHttp.get<PageResult<RoleEntity>>({ url: domain, params }, { joinParamsToUrl: true });
+  return defHttp.get<Page<RoleEntity>>({ url: domain, params }, { joinParamsToUrl: true });
 }
 
 export function loadRole(id: number) {
@@ -40,4 +40,4 @@ export function roleAuthorize(
   });
 }
 
-export { RoleEntity };
+export type { RoleEntity };

@@ -12,6 +12,9 @@
   "department": {
     "title": "部门管理"
   },
+  "duty": {
+    "title": "岗位管理"
+  },
   "dictionary": {
     "title": "字典管理"
   },

@@ -8,4 +8,4 @@ export function listPermissionTree() {
   return defHttp.get<TreeNode[]>({ url: `${domain}/tree` });
 }
 
-export { PermissionEntity };
+export type { PermissionEntity };

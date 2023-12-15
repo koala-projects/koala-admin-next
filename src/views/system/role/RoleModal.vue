@@ -3,7 +3,8 @@
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './role.data';
-  import { createRole, updateRole } from '/@/apis/roles';
+  import { RoleEntity, createRole, updateRole } from '/@/apis/roles';
+
   const isUpdate = ref(false);
   const id = ref<number | null>(null);
   const getTitle = computed(() => (!unref(isUpdate) ? '新增角色' : '编辑角色'));
@@ -27,7 +28,7 @@
   const emit = defineEmits(['success', 'register']);
   async function handleSubmit() {
     try {
-      const values = await validate();
+      const values: RoleEntity = await validate();
       setModalProps({ confirmLoading: true });
       if (unref(isUpdate)) {
         await updateRole(unref(id)!, values);
@@ -46,3 +47,4 @@
     <basic-form @register="registerForm" />
   </basic-modal>
 </template>
+../../../apis/role

@@ -2,43 +2,43 @@ import Sort from './Sort';
 /**
  *
  * @export
- * @interface PageableObject
+ * @interface Pageable
  */
-export default interface PageableObject {
+export default interface Pageable {
   /**
    *
    * @type {number}
-   * @memberof PageableObject
+   * @memberof Pageable
    */
   offset?: number;
   /**
    *
    * @type {Sort}
-   * @memberof PageableObject
+   * @memberof Pageable
    */
   sort?: Sort;
   /**
    *
    * @type {number}
-   * @memberof PageableObject
+   * @memberof Pageable
    */
   pageSize?: number;
   /**
    *
    * @type {number}
-   * @memberof PageableObject
+   * @memberof Pageable
    */
   pageNumber?: number;
   /**
    *
    * @type {boolean}
-   * @memberof PageableObject
+   * @memberof Pageable
    */
   paged?: boolean;
   /**
    *
    * @type {boolean}
-   * @memberof PageableObject
+   * @memberof Pageable
    */
   unpaged?: boolean;
 }

@@ -4,12 +4,22 @@ export const columns: BasicColumn[] = [
   {
     title: '用户名',
     dataIndex: 'username',
-    width: 120,
   },
   {
     title: '昵称',
     dataIndex: 'nickname',
-    width: 120,
+  },
+  {
+    title: '邮箱',
+    dataIndex: 'email',
+  },
+  {
+    title: '手机',
+    dataIndex: 'mobile',
+  },
+  {
+    title: '描述',
+    dataIndex: 'description',
   },
 ];
 
@@ -48,7 +58,7 @@ export const formSchema: FormSchema[] = [
     required: true,
   },
   {
-    field: 'plainPassword',
+    field: 'password',
     label: '用户密码',
     component: 'InputPassword',
     required: true,
@@ -66,7 +76,7 @@ export const formSchema: FormSchema[] = [
     component: 'Input',
   },
   {
-    field: 'remark',
+    field: 'description',
     label: '用户备注',
     component: 'InputTextArea',
   },

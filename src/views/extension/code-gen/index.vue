@@ -6,7 +6,11 @@
   import { PageWrapper } from '/@/components/Page';
   import { useLoading } from '/@/components/Loading';
 
-  import { PreviewResponse, codePreview as codePreviewApi, codeDownload } from '/@/apis/code-gen';
+  import {
+    codeGenPreview as codeGenPreviewApi,
+    codeGenDownload,
+    MultiCodeGenResult,
+  } from '/@/apis/code-gen';
 
   import CodeGenDatabaseForm from './CodeGenDatabaseForm.vue';
   import CodeGenTableForm from './CodeGenTableForm.vue';
@@ -20,7 +24,7 @@
   const databaseId = ref<Nullable<number>>(null);
   const tables = ref<string[]>([]);
   const templateGroupId = ref<Nullable<number>>(null);
-  const preview = ref<Nullable<PreviewResponse>>(null);
+  const preview = ref<Nullable<MultiCodeGenResult[]>>(null);
 
   function handleDatabase(data: { databaseId: number }) {
     current.value++;
@@ -45,7 +49,7 @@
     templateGroupId.value = data.templateGroupId;
     openFullLoading();
     try {
-      preview.value = await codePreviewApi({
+      preview.value = await codeGenPreviewApi({
         databaseId: unref(databaseId)!,
         tables: unref(tables),
         templateGroupId: unref(templateGroupId)!,
@@ -60,7 +64,7 @@
   async function handleDownload() {
     openFullLoading();
     window.open(
-      await codeDownload({
+      await codeGenDownload({
         databaseId: unref(databaseId)!,
         tables: unref(tables),
         templateGroupId: unref(templateGroupId)!,

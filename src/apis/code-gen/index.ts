@@ -1,17 +1,18 @@
 import { defHttp } from '/@/utils/http/axios';
 
-import type SimpleCodeResult from './SimpleCodeResult';
-import type CodeRequest from './CodeRequest';
-import type PreviewResponse from './PreviewResponse';
+import CodeGenRequest from './CodeGenRequest';
+import MultiCodeGenResult from './MultiCodeGenResult';
 
 const domain = '/code-gen';
 
-export function codePreview(data: CodeRequest) {
-  return defHttp.post<PreviewResponse>({ url: `${domain}/preview`, data });
+function codeGenPreview(data: CodeGenRequest) {
+  return defHttp.post<MultiCodeGenResult[]>({ url: `${domain}/preview`, data });
 }
 
-export function codeDownload(data: CodeRequest) {
+function codeGenDownload(data: CodeGenRequest) {
   return defHttp.post<string>({ url: `${domain}/download`, data });
 }
 
-export { SimpleCodeResult as Code, CodeRequest, PreviewResponse };
+export type { CodeGenRequest, MultiCodeGenResult };
+
+export { codeGenPreview, codeGenDownload };

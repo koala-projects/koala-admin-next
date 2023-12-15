@@ -46,6 +46,16 @@ const system: AppRouteModule = {
       component: () => import('/@/views/system/department/index.vue'),
     },
     {
+      path: 'duty',
+      name: 'Duty',
+      meta: {
+        title: t('routes.system.duty.title'),
+        ignoreKeepAlive: true,
+        permissions: ['duty.read'],
+      },
+      component: () => import('/@/views/system/duty/index.vue'),
+    },
+    {
       path: 'dictionary',
       name: 'Dictionary',
       meta: {

@@ -25,7 +25,7 @@
   const [registerDepartmentDrawer, { openDrawer: openDepartmentDrawer }] = useDrawer();
   const [registerRoleDrawer, { openDrawer: openRoleDrawer }] = useDrawer();
   const [registerTable, { reload }] = useTable({
-    title: '账号列表',
+    title: '用户列表',
     columns,
     rowKey: 'id',
     formConfig: {
@@ -41,9 +41,10 @@
       return listUsers({ ...args, departmentId: unref(departmentId) });
     },
     actionColumn: {
-      width: 120,
+      width: 150,
       title: '操作',
       dataIndex: 'action',
+      fixed: 'right',
       // slots: { customRender: 'action' },
     },
   });
@@ -77,7 +78,7 @@
     <department-tree class="w-1/4 xl:w-1/5" toolbar search @select="handleDepartmentSelect" />
     <basic-table @register="registerTable" class="w-3/4 xl:w-4/5">
       <template #toolbar>
-        <a-button v-auth="'user.create'" type="primary" @click="handleCreate"> 新增账号 </a-button>
+        <a-button v-auth="'user.create'" type="primary" @click="handleCreate"> 新增用户 </a-button>
       </template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
@@ -87,21 +88,21 @@
                 icon: 'clarity:note-edit-line',
                 tooltip: '编辑',
                 auth: 'user.update',
-                ifShow: record.isSystemic === YesNo.NO,
+                ifShow: record.systemic === YesNo.NO,
                 onClick: handleEdit.bind(null, record),
               },
               {
                 icon: 'mingcute:department-line',
                 tooltip: '部门配置',
                 auth: 'user.update',
-                ifShow: record.isSystemic === YesNo.NO,
+                ifShow: record.systemic === YesNo.NO,
                 onClick: handleDepartmentSetting.bind(null, record),
               },
               {
                 icon: 'eos-icons:role-binding-outlined',
                 tooltip: '角色配置',
                 auth: 'user.update',
-                ifShow: record.isSystemic === YesNo.NO,
+                ifShow: record.systemic === YesNo.NO,
                 onClick: handleRoleSetting.bind(null, record),
               },
               {
@@ -109,7 +110,7 @@
                 color: 'error',
                 tooltip: '删除',
                 auth: 'user.delete',
-                ifShow: record.isSystemic === YesNo.NO,
+                ifShow: record.systemic === YesNo.NO,
                 popConfirm: {
                   title: '是否确认删除',
                   placement: 'left',

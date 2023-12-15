@@ -62,7 +62,7 @@
                 icon: 'clarity:note-edit-line',
                 tooltip: '编辑',
                 auth: 'department.update',
-                ifShow: record.data.isSystemic === YesNo.NO,
+                ifShow: record.data.systemic === YesNo.NO,
                 onClick: handleEdit.bind(null, record),
               },
               {
@@ -70,7 +70,7 @@
                 tooltip: '删除',
                 color: 'error',
                 auth: 'department.delete',
-                ifShow: record.data.isSystemic === YesNo.NO,
+                ifShow: record.data.systemic === YesNo.NO,
                 popConfirm: {
                   title: '是否确认删除',
                   placement: 'left',

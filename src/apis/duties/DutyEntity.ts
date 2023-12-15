@@ -1,11 +1,7 @@
-interface UserEntity {
+interface DutyEntity {
   id: number;
-  username: string;
-  password: string;
-  nickname: string;
-  avatar: string;
-  email: string;
-  mobile: string;
+  code: string;
+  name: string;
   description: string;
   sortIndex: number;
   enabled: string;
@@ -16,4 +12,4 @@ interface UserEntity {
   lastModifiedDate: number;
 }
 
-export default UserEntity;
+export default DutyEntity;

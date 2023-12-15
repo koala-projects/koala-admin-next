@@ -2,8 +2,14 @@
   import { ref, unref, computed } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
-  import { listDepartmentTree, createDepartment, updateDepartment } from '/@/apis/departments';
+  import {
+    listDepartmentTree,
+    createDepartment,
+    updateDepartment,
+    DepartmentEntity,
+  } from '/@/apis/departments';
   import { formSchema } from './department.data';
+
   const isUpdate = ref(true);
   const id = ref<string | null>(null);
   const getTitle = computed(() => (!unref(isUpdate) ? '新增部门' : '编辑部门'));
@@ -32,16 +38,12 @@
   const emit = defineEmits(['success', 'register']);
   async function handleSubmit() {
     try {
-      const values = await validate();
-      const department = {
-        ...values,
-        parent: { id: values.parentId },
-      };
+      const values: DepartmentEntity = await validate();
       setModalProps({ confirmLoading: true });
       if (unref(isUpdate)) {
-        await updateDepartment(unref(id)!, department);
+        await updateDepartment(unref(id)!, values);
       } else {
-        await createDepartment(department);
+        await createDepartment(values);
       }
       closeModal();
       emit('success');

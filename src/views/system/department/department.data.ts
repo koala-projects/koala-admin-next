@@ -1,5 +1,4 @@
-import { BasicColumn } from '/@/components/Table';
-import { FormSchema } from '/@/components/Table';
+import { BasicColumn, FormSchema } from '/@/components/Table';
 
 export const columns: BasicColumn[] = [
   {
@@ -8,22 +7,11 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '部门备注',
-    dataIndex: ['data', 'remark'],
+    dataIndex: ['data', 'description'],
   },
 ];
 
 export const formSchema: FormSchema[] = [
-  {
-    field: 'name',
-    label: '部门名称',
-    component: 'Input',
-    required: true,
-  },
-  {
-    field: 'remark',
-    label: '部门备注',
-    component: 'InputTextArea',
-  },
   {
     field: 'parentId',
     label: '上级部门',
@@ -36,5 +24,16 @@ export const formSchema: FormSchema[] = [
       },
       getPopupContainer: () => document.body,
     },
+  },
+  {
+    field: 'name',
+    label: '部门名称',
+    component: 'Input',
+    required: true,
+  },
+  {
+    field: 'description',
+    label: '部门备注',
+    component: 'InputTextArea',
   },
 ];

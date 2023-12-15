@@ -1,11 +1,11 @@
-import PageableObject from './PageableObject';
+import Pageable from './Pageable';
 import Sort from './Sort';
 /**
  *
  * @export
  * @interface PageResult
  */
-export default interface PageResult<T> {
+export default interface Page<T> {
   /**
    *
    * @type {number}
@@ -62,10 +62,10 @@ export default interface PageResult<T> {
   numberOfElements: number;
   /**
    *
-   * @type {PageableObject}
+   * @type {Pageable}
    * @memberof PageResult
    */
-  pageable: PageableObject;
+  pageable: Pageable;
   /**
    *
    * @type {boolean}
