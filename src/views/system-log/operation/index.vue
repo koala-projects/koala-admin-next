@@ -31,7 +31,7 @@
 
   function handleDetail(record: Recordable) {
     console.log('查看日志详情', record.id);
-    go('/system/log/' + record.id);
+    go('/system-log/operation/' + record.id);
   }
 </script>
 <template>

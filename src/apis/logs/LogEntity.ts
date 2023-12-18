@@ -1,12 +1,14 @@
-export default interface LogEntity {
+interface LogEntity {
   id: number;
   module: string;
   content: string;
   userId: number;
-  isSucceeded: string;
+  successful: string;
   request: string;
   response?: string;
   error?: string;
   cost: number;
   logTime: string;
 }
+
+export default LogEntity;

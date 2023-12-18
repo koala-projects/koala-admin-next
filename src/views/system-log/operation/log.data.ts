@@ -25,11 +25,11 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '状态',
-    dataIndex: 'isSucceeded',
+    dataIndex: 'successful',
     customRender: ({ record }) => {
-      const succeeded = record.isSucceeded === YesNo.YES;
-      const color = succeeded ? 'green' : 'red';
-      const text = succeeded ? '成功' : '失败';
+      const successful = record.successful === YesNo.YES;
+      const color = successful ? 'green' : 'red';
+      const text = successful ? '成功' : '失败';
       return h(Tag, { color: color }, () => text);
     },
   },
@@ -57,7 +57,7 @@ export const searchFormSchema: FormSchema[] = [
     },
   },
   {
-    field: 'isSucceeded',
+    field: 'successful',
     label: '状态',
     component: 'Select',
     colProps: {
@@ -66,8 +66,8 @@ export const searchFormSchema: FormSchema[] = [
     },
     componentProps: {
       options: [
-        { label: '成功', value: '1' },
-        { label: '失败', value: '0' },
+        { label: '成功', value: 'YES' },
+        { label: '失败', value: 'NO' },
       ],
     },
   },
@@ -121,7 +121,7 @@ export const logDetailSchema: DescItem[] = [
     label: '用户ip',
   },
   {
-    field: 'isSucceeded',
+    field: 'successful',
     label: '是否成功',
     render: (val) => {
       const succeeded = val === YesNo.YES;

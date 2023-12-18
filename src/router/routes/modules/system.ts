@@ -65,29 +65,6 @@ const system: AppRouteModule = {
       },
       component: () => import('/@/views/system/dictionary/index.vue'),
     },
-    {
-      path: 'log',
-      name: 'Log',
-      meta: {
-        title: t('routes.system.log.title'),
-        ignoreKeepAlive: true,
-        permissions: ['log.read'],
-      },
-      component: () => import('/@/views/system/log/index.vue'),
-    },
-    {
-      path: 'log/:id',
-      name: 'LogDetail',
-      meta: {
-        hideMenu: true,
-        title: t('routes.system.log.detail.title'),
-        ignoreKeepAlive: true,
-        showMenu: false,
-        currentActiveMenu: '/system/log',
-        permissions: ['log.read'],
-      },
-      component: () => import('/@/views/system/log/LogDetail.vue'),
-    },
   ],
 };
 
