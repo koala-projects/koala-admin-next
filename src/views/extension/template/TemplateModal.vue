@@ -3,7 +3,7 @@
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './template.data';
-  import { createTemplate, updateTemplate } from '/@/apis/templates';
+  import { TemplateEntity, createTemplate, updateTemplate } from '/@/apis/templates';
 
   const isUpdate = ref(false);
   const id = ref<number | null>(null);
@@ -29,13 +29,13 @@
   const emit = defineEmits(['success', 'register']);
   async function handleSubmit() {
     try {
-      const values = await validate();
+      const values: TemplateEntity = await validate();
       setModalProps({ confirmLoading: true });
       // TODO custom api
       if (unref(isUpdate)) {
         await updateTemplate(unref(id)!, values);
       } else {
-        await createTemplate({ ...values, groupId: unref(groupId) });
+        await createTemplate({ ...values, groupId: unref(groupId) as number });
       }
       closeModal();
       emit('success');

@@ -3,7 +3,12 @@
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './template-group.data';
-  import { createTemplateGroup, updateTemplateGroup } from '/@/apis/template-groups';
+  import {
+    TemplateGroupEntity,
+    createTemplateGroup,
+    updateTemplateGroup,
+  } from '/@/apis/template-groups';
+
   const isUpdate = ref(false);
   const id = ref<number | null>(null);
   const getTitle = computed(() => (!unref(isUpdate) ? '新增模板组' : '编辑模板组'));
@@ -27,7 +32,7 @@
   const emit = defineEmits(['success', 'register']);
   async function handleSubmit() {
     try {
-      const values = await validate();
+      const values: TemplateGroupEntity = await validate();
       setModalProps({ confirmLoading: true });
       // TODO custom api
       if (unref(isUpdate)) {

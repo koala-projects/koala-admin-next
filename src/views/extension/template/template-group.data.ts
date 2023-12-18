@@ -1,5 +1,4 @@
-import { BasicColumn } from '/@/components/Table';
-import { FormSchema } from '/@/components/Table';
+import { BasicColumn, FormSchema } from '/@/components/Table';
 
 export const columns: BasicColumn[] = [
   {
@@ -8,7 +7,7 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '模板组备注',
-    dataIndex: 'remark',
+    dataIndex: 'description',
   },
 ];
 
@@ -32,7 +31,7 @@ export const formSchema: FormSchema[] = [
     required: true,
   },
   {
-    field: 'remark',
+    field: 'description',
     label: '模板组备注',
     component: 'InputTextArea',
   },

@@ -7,6 +7,7 @@
   import { listDatabases, deleteDatabase } from '/@/apis/databases';
   import DatabaseModal from './DatabaseModal.vue';
   import { columns, searchFormSchema } from './database.data';
+
   const [register, { reload }] = useTable({
     title: '数据库列表',
     columns: columns,

@@ -7,7 +7,7 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '模板备注',
-    dataIndex: 'remark',
+    dataIndex: 'description',
   },
 ];
 
@@ -31,7 +31,7 @@ export const formSchema: FormSchema[] = [
     required: true,
   },
   {
-    field: 'remark',
+    field: 'description',
     label: '模板备注',
     component: 'InputTextArea',
   },

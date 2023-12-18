@@ -1,11 +1,18 @@
-import type AbstractEntity from '../AbstractEntity';
-
-export default interface DatabaseEntity extends AbstractEntity {
+interface DatabaseEntity {
   name: string;
   url: string;
   username: string;
   password: string;
   catalog?: string;
   schema?: string;
-  remark?: string;
+  description?: string;
+  sortIndex?: number;
+  enabled: string;
+  systemic: string;
+  createdBy: number;
+  createdDate: number;
+  lastModifiedBy?: number;
+  lastModifiedDate?: number;
 }
+
+export default DatabaseEntity;

@@ -1,6 +1,13 @@
-import type AbstractEntity from '../AbstractEntity';
-
-export default interface TemplateGroupEntity extends AbstractEntity {
+interface TemplateGroupEntity {
   name: string;
-  remark?: string;
+  description?: string;
+  sortIndex?: number;
+  enabled: string;
+  systemic: string;
+  createdBy: number;
+  createdDate: number;
+  lastModifiedBy?: number;
+  lastModifiedDate?: number;
 }
+
+export default TemplateGroupEntity;
