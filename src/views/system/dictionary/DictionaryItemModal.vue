@@ -3,11 +3,15 @@
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './dictionary-item.data';
-  import { createDictionaryItem, updateDictionaryItem } from '/@/apis/dictionary-items';
+  import {
+    DictionaryItemEntity,
+    createDictionaryItem,
+    updateDictionaryItem,
+  } from '/@/apis/dictionary-items';
 
   const isUpdate = ref(false);
-  const id = ref<string | null>(null);
-  const dictionaryId = ref<Nullable<string>>(null);
+  const id = ref<number | null>(null);
+  const dictionaryId = ref<Nullable<number>>(null);
   const getTitle = computed(() => (!unref(isUpdate) ? '新增字典项' : '编辑字典项'));
   const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
     labelWidth: 100,
@@ -30,13 +34,13 @@
   const emit = defineEmits(['success', 'register']);
   async function handleSubmit() {
     try {
-      const values = await validate();
+      const values: DictionaryItemEntity = await validate();
       setModalProps({ confirmLoading: true });
       // TODO custom api
       if (unref(isUpdate)) {
         await updateDictionaryItem(unref(id)!, values);
       } else {
-        await createDictionaryItem({ ...values, dictionaryId: unref(dictionaryId) });
+        await createDictionaryItem({ ...values, dictionaryId: unref(dictionaryId) as number });
       }
       closeModal();
       emit('success');

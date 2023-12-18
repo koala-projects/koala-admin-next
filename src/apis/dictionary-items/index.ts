@@ -13,7 +13,7 @@ export function listDictionaryItems(params: SearchParameters) {
   );
 }
 
-export function loadDictionaryItem(id: string) {
+export function loadDictionaryItem(id: number) {
   return defHttp.get<DictionaryItemEntity>({ url: `${domain}/${id}` });
 }
 
@@ -21,11 +21,11 @@ export function createDictionaryItem(data: DictionaryItemEntity) {
   return defHttp.post<DictionaryItemEntity>({ url: domain, data });
 }
 
-export function updateDictionaryItem(id: string, data: DictionaryItemEntity) {
+export function updateDictionaryItem(id: number, data: DictionaryItemEntity) {
   return defHttp.put<null>({ url: `${domain}/${id}`, data });
 }
 
-export function deleteDictionaryItem(id: string) {
+export function deleteDictionaryItem(id: number) {
   return defHttp.delete<null>({ url: `${domain}/${id}` });
 }
 

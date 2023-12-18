@@ -88,13 +88,13 @@
               :actions="[
                 {
                   icon: 'clarity:note-edit-line',
-                  ifShow: record.isSystemic === YesNo.NO,
+                  ifShow: record.systemic === YesNo.NO,
                   onClick: handleEdit.bind(null, record),
                 },
                 {
                   icon: 'ant-design:delete-outlined',
                   color: 'error',
-                  ifShow: record.isSystemic === YesNo.NO,
+                  ifShow: record.systemic === YesNo.NO,
                   popConfirm: {
                     title: '是否确认删除',
                     placement: 'left',

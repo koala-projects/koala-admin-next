@@ -3,7 +3,8 @@
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './dictionary.data';
-  import { createDictionary, updateDictionary } from '/@/apis/dictionaries';
+  import { DictionaryEntity, createDictionary, updateDictionary } from '/@/apis/dictionaries';
+
   const isUpdate = ref(false);
   const id = ref<string | null>(null);
   const getTitle = computed(() => (!unref(isUpdate) ? '新增字典' : '编辑字典'));
@@ -27,7 +28,7 @@
   const emit = defineEmits(['success', 'register']);
   async function handleSubmit() {
     try {
-      const values = await validate();
+      const values: DictionaryEntity = await validate();
       setModalProps({ confirmLoading: true });
       // TODO custom api
       if (unref(isUpdate)) {

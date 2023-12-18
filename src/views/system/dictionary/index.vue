@@ -70,14 +70,14 @@
                 icon: 'clarity:note-edit-line',
                 tooltip: '编辑',
                 auth: 'dictionary.update',
-                ifShow: record.isSystemic === YesNo.NO,
+                ifShow: record.systemic === YesNo.NO,
                 onClick: handleEdit.bind(null, record),
               },
               {
                 icon: 'ant-design:setting-outlined',
                 tooltip: '字典配置',
                 auth: 'dictionary.update',
-                ifShow: record.isSystemic === YesNo.NO,
+                ifShow: record.systemic === YesNo.NO,
                 onClick: handleSetting.bind(null, record),
               },
               {
@@ -85,7 +85,7 @@
                 tooltip: '删除',
                 color: 'error',
                 auth: 'dictionary.delete',
-                ifShow: record.isSystemic === YesNo.NO,
+                ifShow: record.systemic === YesNo.NO,
                 popConfirm: {
                   title: '是否确认删除',
                   placement: 'left',

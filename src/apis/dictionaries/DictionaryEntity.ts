@@ -1,7 +1,14 @@
-import type AbstractEntity from '../AbstractEntity';
-
-export default interface DictionaryEntity extends AbstractEntity {
+interface DictionaryEntity {
   code: string;
   name: string;
-  remark?: string;
+  description?: string;
+  sortIndex?: number;
+  enabled: string;
+  systemic: string;
+  createdBy: number;
+  createdDate: number;
+  lastModifiedBy?: number;
+  lastModifiedDate?: number;
 }
+
+export default DictionaryEntity;

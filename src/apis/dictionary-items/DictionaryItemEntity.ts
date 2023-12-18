@@ -1,13 +1,20 @@
-import type AbstractEntity from '../AbstractEntity';
-
 /**
  * 字典项数据实体
  * @export
  * @interface DictionaryItemEntity
  */
-export default interface DictionaryItemEntity extends AbstractEntity {
+interface DictionaryItemEntity {
+  dictionaryId: number;
   code: string;
   name: string;
-  remark?: string;
-  dictionaryId: number;
+  description?: string;
+  sortIndex?: number;
+  enabled: string;
+  systemic: string;
+  createdBy: number;
+  createdDate: number;
+  lastModifiedBy?: number;
+  lastModifiedDate?: number;
 }
+
+export default DictionaryItemEntity;
